@@ -12,7 +12,7 @@ func main() {
 
 	r.Use(gin.BasicAuth(utils.GetAccounts()))
 
-	r.GET("/", routes.IndexRoute)
+	r.GET("/memory", routes.MemoryRoute)
 
 	r.Run(":8000")
 }

@@ -5,8 +5,8 @@ import (
 	"github.com/shirou/gopsutil/v3/mem"
 )
 
-// IndexRoute returns system stats
-func IndexRoute(c *gin.Context) {
+// MemoryRoute returns memory stats
+func MemoryRoute(c *gin.Context) {
 	mem, err := mem.VirtualMemory()
 	if err != nil {
 		c.JSON(500, gin.H{
