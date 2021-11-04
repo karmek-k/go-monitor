@@ -2,8 +2,8 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/shirou/gopsutil/v3/mem"
 
+	"github.com/karmek-k/go-monitor/routes"
 	"github.com/karmek-k/go-monitor/utils"
 )
 
@@ -12,25 +12,7 @@ func main() {
 
 	r.Use(gin.BasicAuth(utils.GetAccount()))
 
-	// TODO: caching
-	r.GET("/", func(c *gin.Context) {
-		mem, err := mem.VirtualMemory()
-		if err != nil {
-			c.JSON(500, gin.H{
-				"error": "Could not read memory stats",
-			})
-			return
-		}
-
-		c.JSON(200, gin.H{
-			"error": nil,
-			"memory": gin.H{
-				"total": mem.Total,
-				"used": mem.Used,
-				"usedPercent": mem.UsedPercent,
-			},
-		})
-	})
+	r.GET("/", routes.IndexRoute)
 
 	r.Run(":8000")
 }
