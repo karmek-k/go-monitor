@@ -10,7 +10,7 @@ import (
 func main() {
 	r := gin.New()
 
-	r.Use(gin.BasicAuth(utils.GetAccount()))
+	r.Use(gin.BasicAuth(utils.GetAccounts()))
 
 	r.GET("/", routes.IndexRoute)
 
