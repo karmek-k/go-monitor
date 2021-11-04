@@ -3,14 +3,14 @@ package main
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/shirou/gopsutil/v3/mem"
+
+	"github.com/karmek-k/go-monitor/utils"
 )
 
 func main() {
 	r := gin.New()
 
-	r.Use(gin.BasicAuth(gin.Accounts{
-		"bartek": "12345",
-	}))
+	r.Use(gin.BasicAuth(utils.GetAccount()))
 
 	// TODO: caching
 	r.GET("/", func(c *gin.Context) {
