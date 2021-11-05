@@ -9,7 +9,7 @@ import (
 
 // CpuRoute returns CPU stats
 func CpuRoute(c *gin.Context) {
-	stats, err := resources.GetCpuStats(time.Second)
+	stats, err := resources.GetCpuStats(time.Second, true)
 	if err != nil {
 		c.JSON(500, gin.H{
 			"error": "Could not read CPU stats",
@@ -19,6 +19,6 @@ func CpuRoute(c *gin.Context) {
 
 	c.JSON(200, gin.H{
 		"error": nil,
-		"cpu": stats,
+		"cpu": *stats,
 	})
 }
