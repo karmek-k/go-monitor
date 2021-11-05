@@ -2,12 +2,12 @@ package routes
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/shirou/gopsutil/v3/mem"
+	"github.com/karmek-k/go-monitor/resources"
 )
 
 // MemoryRoute returns memory stats
 func MemoryRoute(c *gin.Context) {
-	mem, err := mem.VirtualMemory()
+	stats, err := resources.GetMemoryStats()
 	if err != nil {
 		c.JSON(500, gin.H{
 			"error": "Could not read memory stats",
@@ -17,10 +17,6 @@ func MemoryRoute(c *gin.Context) {
 
 	c.JSON(200, gin.H{
 		"error": nil,
-		"memory": gin.H{
-			"total":       mem.Total,
-			"used":        mem.Used,
-			"usedPercent": mem.UsedPercent,
-		},
+		"memory": *stats,
 	})
 }
