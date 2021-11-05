@@ -8,10 +8,10 @@ type MemoryStats struct {
 	UsedPercent float64 `json:"usedPercent"`
 }
 
-func GetMemoryStats() (MemoryStats, error) {
+func GetMemoryStats() (*MemoryStats, error) {
 	stats, err := mem.VirtualMemory()
 
-	return MemoryStats{
+	return &MemoryStats{
 		stats.Total,
 		stats.Used,
 		stats.UsedPercent,

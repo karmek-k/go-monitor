@@ -17,6 +17,6 @@ func MemoryRoute(c *gin.Context) {
 
 	c.JSON(200, gin.H{
 		"error": nil,
-		"memory": stats,
+		"memory": *stats,
 	})
 }
