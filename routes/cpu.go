@@ -4,12 +4,12 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
-	"github.com/shirou/gopsutil/v3/cpu"
+	"github.com/karmek-k/go-monitor/resources"
 )
 
 // CpuRoute returns CPU stats
 func CpuRoute(c *gin.Context) {
-	usage, err := cpu.Percent(time.Second, true)
+	stats, err := resources.GetCpuStats(time.Second)
 	if err != nil {
 		c.JSON(500, gin.H{
 			"error": "Could not read CPU stats",
@@ -19,8 +19,6 @@ func CpuRoute(c *gin.Context) {
 
 	c.JSON(200, gin.H{
 		"error": nil,
-		"cpu": gin.H{
-			"usage": usage,
-		},
+		"cpu": stats,
 	})
 }
