@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"os"
 
 	"github.com/gin-gonic/gin"
 
@@ -15,6 +16,8 @@ func main() {
 		log.Fatalf("An error has occurred while fetching accounts: %v\n", err)
 	}
 
+	gin.SetMode(gin.ReleaseMode)
+
 	r := gin.New()
 
 	r.Use(gin.BasicAuth(*accounts))
@@ -22,5 +25,11 @@ func main() {
 	r.GET("/memory", routes.MemoryRoute)
 	r.GET("/cpu", routes.CpuRoute)
 
-	r.Run(":8000")
+	port := "8000"
+	if envPort := os.Getenv("PORT"); envPort != "" {
+		port = envPort
+	}
+
+	log.Printf("Running on port %v\n", port)
+	r.Run(":" + port)
 }
